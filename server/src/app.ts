@@ -7,7 +7,21 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+
+// CORS middleware
+app.use(
+  cors({
+    origin: [
+      "https://user-mgt-system.netlify.app", // Production frontend URL
+      "http://localhost:5173", // Vite local dev server
+      "http://127.0.0.1:5173",
+      "http://localhost:3000",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
+
 app.use(express.json());
 
 // Connect to MongoDB
