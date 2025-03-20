@@ -1,35 +1,93 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { JSX, useEffect, useState } from "react";
+import { setupAxiosInterceptors, getCurrentUser } from "./services/authService";
+import UsersPage from "./pages/UsersPage";
+import UserFormPage from "./pages/UserFormPage";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import Navbar from "./components/Navbar";
+import ProfilePage from "./pages/ProfilePage";
+import "./App.css";
+import Footer from "./components/Footer";
 
-function App() {
-  const [count, setCount] = useState(0)
+setupAxiosInterceptors();
+
+const App = () => {
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const currentUser = getCurrentUser();
+    setUser(currentUser?.user);
+    setLoading(false);
+  }, []);
+
+  // Protected route component
+  const ProtectedRoute = ({ children, requiredRoles = [] }: { children: JSX.Element, requiredRoles?: string[] }) => {
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+
+    if (!user) {
+      return <Navigate to="/login" />;
+    }
+
+    if (requiredRoles.length > 0 && !requiredRoles.includes(user.role)) {
+      return <Navigate to="/unauthorized" />;
+    }
+
+    return children;
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <Router>
+      <Navbar user={user} setUser={setUser} />
+      <div className="container">
+        <Routes>
+          {/* Public routes */}
+          <Route path="/login" element={<LoginPage setUser={setUser} />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/unauthorized" element={<div className="unauthorized">You don't have permission to access this page</div>} />
+          <Route path="/" element={<Navigate to="/users" />} />
 
-export default App
+          {/* Protected routes */}
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <UsersPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users/new"
+            element={
+              <ProtectedRoute requiredRoles={["admin", "editor"]}>
+                <UserFormPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users/edit/:id"
+            element={
+              <ProtectedRoute requiredRoles={["admin", "editor"]}>
+                <UserFormPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage setUser={setUser} />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </div>
+      <Footer />
+    </Router>
+  );
+};
+
+export default App;

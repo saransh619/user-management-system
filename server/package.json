@@ -4,8 +4,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "bun run server.ts",
-    "dev": "nodemon --exec bun run server.ts"
+    "start": "bun run src/server.ts",
+    "dev": "nodemon --exec bun run src/server.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -19,10 +19,14 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
+    "@types/jsonwebtoken": "^9.0.9",
     "axios": "^1.8.3",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "joi": "^17.13.3",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.12.1"
   }
 }
