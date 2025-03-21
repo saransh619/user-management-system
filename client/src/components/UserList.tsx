@@ -111,7 +111,14 @@ const UserList: React.FC<UserListProps> = ({ users, total, page, pages, onPageCh
                             {(userRole === "admin" || userRole === "editor") && (
                                 <td>
                                     <button onClick={() => handleEdit(user._id)}>Edit</button>
-                                    <button onClick={() => handleDelete(user._id)}>Delete</button>
+                                    {/* Disable Delete button for editors */}
+                                    <button
+                                        onClick={() => handleDelete(user._id)}
+                                        disabled={userRole === "editor"}
+                                        style={{ opacity: userRole === "editor" ? 0.5 : 1 }}
+                                    >
+                                        Delete
+                                    </button>
                                 </td>
                             )}
                         </tr>
