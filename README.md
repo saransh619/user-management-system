@@ -125,12 +125,12 @@ Can delete their own account (permanently deletes the account).
 
 ## Hosting
 
-**Frontend**: Hosted on Netlify - https://user-mgt-system.netlify.app/
-**Backend**: Hosted on Render - https://user-management-system-d0x3.onrender.com/
+**Frontend**: Hosted on Netlify - https://user-mgt-system.netlify.app/ 
+**Backend**: Hosted on Render - https://user-management-system-d0x3.onrender.com/ 
 
 ## Map Integration
 
-**Google Maps**: Used for Maps JavaScript API and Geocoding API.
+**Google Maps**: Used for Maps JavaScript API and Geocoding API. 
 **GoMaps**: Used for Places API.
 
 ## Screenshots
