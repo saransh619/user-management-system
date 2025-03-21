@@ -16,22 +16,22 @@ The User Management System is a full-stack application designed to manage users 
 
 ### Admin Role
 
-    - Can perform all operations (Create, Read, Update, Delete).
-    - Can manage user roles (assign roles to users).
-    - Only admins can delete users or editors.
+Can perform all operations (Create, Read, Update, Delete).
+Can manage user roles (assign roles to users).
+Only admins can delete users or editors.
 
 ### Editor Role
 
-    - Can view all users.
-    - Can create new users.
-    - Can update user details.
-    - Cannot delete users.
+Can view all users.
+Can create new users.
+Can update user details.
+Cannot delete users.
 
 ### User Role
 
-    - Can only view the list of users.
-    - Can edit their own account details.
-    - Can delete their own account (permanently deletes the account).
+Can only view the list of users.
+Can edit their own account details.
+Can delete their own account (permanently deletes the account).
 
 ## Technologies Used
 
@@ -125,8 +125,8 @@ The User Management System is a full-stack application designed to manage users 
 
 ## Hosting
 
-**Frontend**:Hosted on Netlify - https://user-mgt-system.netlify.app/
-**Backend**:Hosted on Render - https://user-management-system-d0x3.onrender.com/
+**Frontend**: Hosted on Netlify - https://user-mgt-system.netlify.app/
+**Backend**: Hosted on Render - https://user-management-system-d0x3.onrender.com/
 
 ## Map Integration
 
